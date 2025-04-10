@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget App</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="phone-frame">
@@ -908,6 +908,12 @@
                                         </div>
                                         <div class="bill-detail-item">
                                             <svg viewBox="0 0 24 24">
+                                                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+                                            </svg>
+                                            <span>Due: Apr 20, 2024</span>
+                                        </div>
+                                        <div class="bill-detail-item">
+                                            <svg viewBox="0 0 24 24">
                                                 <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
                                             </svg>
                                             <span>Category: Utilities</span>
@@ -1162,9 +1168,71 @@
                             </button>
                             <h2 class="screen-title">Adjust Budget</h2>
                         </div>
+
+                        <div class="view-budget-cta">
+                            <button class="view-budget-btn" data-screen="view-budget-screen">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                                View Budget Allocations
+                            </button>
+                        </div>
+
                         <div class="settings-card">
-                            <div class="category-adjustments">
-                                <!-- Budget adjustment content will go here -->
+                            <div class="budget-overview">
+                                <div class="overview-header">
+                                    <h3>Monthly Budget Overview</h3>
+                                    <div class="total-budget">
+                                        <span class="label">Total Budget</span>
+                                        <span class="amount">$3,500</span>
+                                    </div>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" style="width: 65%"></div>
+                                </div>
+                                <div class="progress-label">$2,275 allocated of $3,500</div>
+                            </div>
+
+                            <div class="budget-form">
+                                <h3>Adjust Category Allocation</h3>
+                                <form id="adjust-budget-form">
+                                    <div class="form-group">
+                                        <label for="category-name">Category</label>
+                                        <select id="category-name" class="form-input" required>
+                                            <option value="">Select a category</option>
+                                            <option value="housing">Housing</option>
+                                            <option value="transportation">Transportation</option>
+                                            <option value="food">Food & Dining</option>
+                                            <option value="utilities">Utilities</option>
+                                            <option value="entertainment">Entertainment</option>
+                                            <option value="shopping">Shopping</option>
+                                            <option value="health">Health & Fitness</option>
+                                            <option value="personal">Personal Care</option>
+                                            <option value="education">Education</option>
+                                            <option value="travel">Travel</option>
+                                            <option value="savings">Savings</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="budget-amount">Budget Amount</label>
+                                        <div class="amount-input-wrapper">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="number" id="budget-amount" class="form-input" min="0" step="0.01" required placeholder="0.00">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="budget-notes">Notes (Optional)</label>
+                                        <textarea id="budget-notes" class="form-input" placeholder="Add any notes about this budget allocation"></textarea>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="reset" class="cancel-btn">Clear</button>
+                                        <button type="submit" class="submit-btn">Update Budget</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -1182,9 +1250,165 @@
                             </button>
                             <h2 class="screen-title">Set Financial Goal</h2>
                         </div>
+
+                        <div class="view-goals-cta">
+                            <button class="view-goals-btn" data-screen="view-goals-screen">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                                View My Goals
+                            </button>
+                        </div>
+
+                     
+                        <div class="goal-form-container">
+                            <div class="form-header">
+                                <h3>Create New Goal</h3>
+                            </div>
+                            
+                            <form class="goal-form">
+                                <div class="form-group">
+                                    <label for="goal-name">Goal Name</label>
+                                    <input type="text" id="goal-name" class="form-input" placeholder="Enter goal name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goal-amount">Target Amount</label>
+                                    <div class="amount-input-wrapper">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="goal-amount" class="form-input" placeholder="0.00" step="100" min="100" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goal-date">Target Date</label>
+                                    <input type="date" id="goal-date" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goal-category">Category</label>
+                                    <select id="goal-category" class="form-input" required>
+                                        <option value="">Select a category</option>
+                                        <option value="savings">Savings</option>
+                                        <option value="investment">Investment</option>
+                                        <option value="property">Property</option>
+                                        <option value="education">Education</option>
+                                        <option value="travel">Travel</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goal-contribution">Monthly Contribution</label>
+                                    <div class="amount-input-wrapper">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="goal-contribution" class="form-input" placeholder="0.00" step="50" min="50" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goal-notes">Notes (Optional)</label>
+                                    <textarea id="goal-notes" class="form-input" rows="3" placeholder="Add any additional notes"></textarea>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="reset" class="cancel-btn">Clear</button>
+                                    <button type="submit" class="submit-btn">Create Goal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Goals Screen -->
+                <div id="view-goals-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="set-goal-screen">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">My Financial Goals</h2>
+                        </div>
+                        
+                        <div class="view-goals-actions">
+                            <button class="clear-all-goals-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                                Clear All Goals
+                            </button>
+                            <button class="add-goal-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add New Goal
+                            </button>
+                        </div>
+
+                        <div class="goals-list-container">
+                            <div class="goals-list">
+                                <!-- Goals will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- View Budget Allocations Screen -->
+                <div id="view-budget-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="adjust-budget-screen">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Budget Allocations</h2>
+                        </div>
+                        
+                        <div class="view-budget-actions">
+                            <button class="reset-budget-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                                Reset All Allocations
+                            </button>
+                            <button class="add-category-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add New Category
+                            </button>
+                        </div>
+
                         <div class="settings-card">
-                            <div class="goal-setup">
-                                <!-- Goal setup content will go here -->
+                            <div class="budget-stats">
+                                <div class="stats-item">
+                                    <div class="stats-label">Total Categories</div>
+                                    <div class="stats-value">8</div>
+                                </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">Total Budget</div>
+                                    <div class="stats-value">$3,500</div>
+                                </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">Allocated</div>
+                                    <div class="stats-value">$2,275 (65%)</div>
+                                </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">Unallocated</div>
+                                    <div class="stats-value">$1,225 (35%)</div>
+                                </div>
+                            </div>
+
+                            <div class="budget-allocations-list">
+                                <h3>Current Allocations</h3>
+                                <div class="allocations-list budget-list">
+                                    <!-- Budget allocations will be displayed here -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1340,6 +1564,8 @@
             </div>
         </nav>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Load JavaScript -->
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>
