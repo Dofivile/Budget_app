@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span class="time">8:05 PM</span>
+            <div class="status-icons">
+                <svg class="status-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <path d="M2 22h20V2L2 22zm2-4.6L18 3.4V20H4v-2.6z"/>
+                </svg>
+                <svg class="status-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <path d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6m0-2C7.6 4 4 7.6 4 12s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
+                    <path d="M12 9c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3m0-2C9.2 7 7 9.2 7 12s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5z"/>
+                </svg>
+                <svg class="status-icon battery" viewBox="0 0 24 24" width="18" height="18">
+                    <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/>
+                    <path d="M15 6H9v12h6V6z" fill="currentColor"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="app-content">
+            <!-- Home Tab Content -->
+            <div class="tab-content" id="home-tab">
+                <div class="grid-container">
+                    <div class="budget-summary">
+                        <h2>Budget Overview</h2>
+                        <div class="balance-card">
+                            <div class="balance-amount">$1,200</div>
+                            <div class="balance-label">remaining this month</div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                            <div class="progress-label">You've spent 65% of your budget</div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-amount">$15</div>
+                                <div class="activity-details">
+                                    <div class="activity-name">Starbucks</div>
+                                    <div class="activity-category">Food</div>
+                                </div>
+                                <div class="activity-time">2h ago</div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-amount">$30</div>
+                                <div class="activity-details">
+                                    <div class="activity-name">Uber</div>
+                                    <div class="activity-category">Transport</div>
+                                </div>
+                                <div class="activity-time">5h ago</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button class="action-btn primary manage-btn">
+                            <span>💰</span>Manage Budget
+                        </button>
+                    </div>
+                    
+                    <div class="quick-insight">
+                        <div class="insight-icon">💡</div>
+                        <div class="insight-content">
+                            <div class="insight-title">Quick Tip</div>
+                            <div class="insight-text">You're spending less on groceries compared to last month. Great job!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Tab Content -->
+            <div class="tab-content" id="reports-tab">
+                <div class="grid-container">
+                    <div class="reports-header">
+                        <h2>Financial Reports</h2>
+                        <div class="filter-dropdown">
+                            <select id="report-filter">
+                                <option value="week">This Week</option>
+                                <option value="last-week">Last Week</option>
+                                <option value="month">This Month</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="reports-navigation">
+                        <div class="nav-dot active" data-page="income"></div>
+                        <div class="nav-dot" data-page="spending"></div>
+                        <div class="nav-dot" data-page="goals"></div>
+                    </div>
+
+                    <!-- Income Page -->
+                    <div id="income-page" class="report-page active">
+                        <h3>Income Trends</h3>
+                        <div class="page-description">
+                            <h4>📋 What This Page Shows:</h4>
+                            <p>User's Earnings Progress</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4>Earnings Breakdown</h4>
+                                <div class="view-toggle">
+                                    <button class="toggle-btn active">Week View</button>
+                                    <button class="toggle-btn">Month View</button>
+                                </div>
+                            </div>
+                            <div class="earnings-breakdown">
+                                <div class="earnings-row">
+                                    <div class="day-info">
+                                        <div class="day">Monday</div>
+                                        <div class="date">Mar 18</div>
+                                    </div>
+                                    <div class="earnings-details">
+                                        <div class="earning-item">
+                                            <span class="source">Tutoring</span>
+                                            <span class="amount">$45</span>
+                                        </div>
+                                        <div class="earning-item">
+                                            <span class="source">Freelance</span>
+                                            <span class="amount">$85</span>
+                                        </div>
+                                    </div>
+                                    <div class="daily-total">$130</div>
+                                </div>
+                                <div class="earnings-row">
+                                    <div class="day-info">
+                                        <div class="day">Tuesday</div>
+                                        <div class="date">Mar 19</div>
+                                    </div>
+                                    <div class="earnings-details">
+                                        <div class="earning-item">
+                                            <span class="source">Tutoring</span>
+                                            <span class="amount">$60</span>
+                                        </div>
+                                    </div>
+                                    <div class="daily-total">$60</div>
+                                </div>
+                                <div class="earnings-row">
+                                    <div class="day-info">
+                                        <div class="day">Wednesday</div>
+                                        <div class="date">Mar 20</div>
+                                    </div>
+                                    <div class="earnings-details">
+                                        <div class="earning-item">
+                                            <span class="source">Freelance</span>
+                                            <span class="amount">$125</span>
+                                        </div>
+                                    </div>
+                                    <div class="daily-total">$125</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reports-navigation-buttons">
+                            <button class="nav-btn" disabled>← Back</button>
+                            <button class="nav-btn">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Spending Page -->
+                    <div id="spending-page" class="report-page">
+                        <h3>Spending Overview</h3>
+                        <div class="page-description">
+                            <h4>📊 What This Page Shows:</h4>
+                            <p>Category-based spending analysis</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4>Category Breakdown</h4>
+                                <div class="view-toggle">
+                                    <button class="toggle-btn active">Week View</button>
+                                    <button class="toggle-btn">Month View</button>
+                                </div>
+                            </div>
+
+                            <div class="category-breakdown">
+                                <div class="category-row">
+                                    <div class="category-name">Dining</div>
+                                    <div class="category-bar">
+                                        <div class="progress-bar warning" style="width: 78%"></div>
+                                        <span class="usage-text warning-text">78% used</span>
+                                    </div>
+                                    <div class="category-amount">$320</div>
+                                    <div class="category-percent">32%</div>
+                                </div>
+
+                                <div class="category-row">
+                                    <div class="category-name">Rent</div>
+                                    <div class="category-bar">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                        <span class="usage-text">100% used</span>
+                                    </div>
+                                    <div class="category-amount">$800</div>
+                                    <div class="category-percent">40%</div>
+                                </div>
+
+                                <div class="category-row">
+                                    <div class="category-name">Entertainment</div>
+                                    <div class="category-bar">
+                                        <div class="progress-bar success" style="width: 45%"></div>
+                                        <span class="usage-text">45% used</span>
+                                    </div>
+                                    <div class="category-amount">$150</div>
+                                    <div class="category-percent">15%</div>
+                                </div>
+
+                                <div class="category-row">
+                                    <div class="category-name">Groceries</div>
+                                    <div class="category-bar">
+                                        <div class="progress-bar success" style="width: 60%"></div>
+                                        <span class="usage-text">60% used</span>
+                                    </div>
+                                    <div class="category-amount">$250</div>
+                                    <div class="category-percent">25%</div>
+                                </div>
+                            </div>
+
+                            <div class="alert-message warning">
+                                <span class="alert-icon">⚠️</span>
+                                <span class="alert-text">You've spent 78% of your dining budget</span>
+                                <button class="adjust-btn">Adjust Budget</button>
+                            </div>
+                        </div>
+
+                        <div class="reports-navigation-buttons">
+                            <button class="nav-btn">← Back</button>
+                            <button class="nav-btn">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Goals Page -->
+                    <div id="goals-page" class="report-page">
+                        <h3>Budget Goals & Status</h3>
+                        <div class="page-description">
+                            <h4>🎯 What This Page Shows:</h4>
+                            <p>Progress towards your financial goals</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4>Savings Goals</h4>
+                                <div class="view-toggle">
+                                    <button class="toggle-btn active">Active</button>
+                                    <button class="toggle-btn">Completed</button>
+                                </div>
+                            </div>
+
+                            <div class="savings-goal-container">
+                                <div class="savings-header">
+                                    <h4>House Down Payment</h4>
+                                    <span class="goal-name">Primary Goal</span>
+                                </div>
+
+                                <div class="goal-progress">
+                                    <div class="progress-bar-large">
+                                        <div class="progress-fill success" style="width: 63%"></div>
+                                    </div>
+                                    <div class="goal-stats">
+                                        <div class="goal-amount">
+                                            <span class="current">$7,800</span>
+                                            <span class="separator">/</span>
+                                            <span class="target">$12,500</span>
+                                        </div>
+                                        <span class="goal-percent">63% to target</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="savings-goal-container">
+                                <div class="savings-header">
+                                    <h4>Emergency Fund</h4>
+                                    <span class="goal-name">Secondary Goal</span>
+                                </div>
+
+                                <div class="goal-progress">
+                                    <div class="progress-bar-large">
+                                        <div class="progress-fill success" style="width: 45%"></div>
+                                    </div>
+                                    <div class="goal-stats">
+                                        <div class="goal-amount">
+                                            <span class="current">$2,250</span>
+                                            <span class="separator">/</span>
+                                            <span class="target">$5,000</span>
+                                        </div>
+                                        <span class="goal-percent">45% to target</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reports-navigation-buttons">
+                            <button class="nav-btn">← Back</button>
+                            <button class="nav-btn" disabled>Next →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Budget Tab Content -->
+            <div class="tab-content" id="manage-budget-tab">
+                <!-- Main Screen -->
+                <div id="manage-budget-main" class="manage-budget-screen active">
+                    <div class="grid-container">
+                        <div class="manage-budget-header">
+                            <h2>Manage Budget</h2>
+                        </div>
+
+                        <div class="manage-budget-actions">
+                            <div class="settings-card">
+                                <div class="settings-section">
+                                    <h3>Quick Actions</h3>
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Add Transaction</span>
+                                                <span class="setting-description">Record a new transaction</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="add-transaction-screen">Add</button>
+                                    </div>
+
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Add Expenses</span>
+                                                <span class="setting-description">Track your daily expenses</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="add-expenses-screen">Add</button>
+                                    </div>
+                                </div>
+
+                                <div class="settings-section">
+                                    <h3>Recurring & Bills</h3>
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Recurring Transaction</span>
+                                                <span class="setting-description">Manage recurring payments</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="recurring-transaction-screen">Manage</button>
+                                    </div>
+
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M20 4H4c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V6c0-1.11-.89-2-2-2zm-5 14h-2V9h-2V7h4v10z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Bills</span>
+                                                <span class="setting-description">Manage your upcoming bills</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="bills-screen">View Bills</button>
+                                    </div>
+                                </div>
+
+                                <div class="settings-section">
+                                    <h3>Budget Management</h3>
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Adjust Budget</span>
+                                                <span class="setting-description">Modify your budget allocations</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="adjust-budget-screen">Adjust</button>
+                                    </div>
+
+                                    <div class="setting-item">
+                                        <div class="setting-label">
+                                            <span class="setting-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"/>
+                                                </svg>
+                                            </span>
+                                            <div class="setting-info">
+                                                <span class="setting-title">Set Goal</span>
+                                                <span class="setting-description">Create and track financial goals</span>
+                                            </div>
+                                        </div>
+                                        <button class="action-btn" data-screen="set-goal-screen">Set Goal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Transaction Screen -->
+                <div id="add-transaction-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Add Transaction</h2>
+                        </div>
+
+                        <form class="transaction-form" id="add-transaction-form">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <div class="toggle-group">
+                                    <input type="radio" id="type-income" name="transaction-type" value="income" checked>
+                                    <label for="type-income">Income</label>
+                                    <input type="radio" id="type-expense" name="transaction-type" value="expense">
+                                    <label for="type-expense">Expense</label>
+                                </div>
+                            </div>
+
+                            <div class="smart-tip">
+                                <span class="tip-icon">💡</span>
+                                <span class="tip-text">Quick tip: Use hashtags in the name (e.g., #food) for smart categorization</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-name">Name</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" 
+                                           id="transaction-name" 
+                                           name="transaction-name"
+                                           class="form-input" 
+                                           placeholder="Enter transaction name (e.g., Coffee Shop #food)" 
+                                           required
+                                           pattern=".{3,}"
+                                           title="Name must be at least 3 characters long"
+                                           list="transaction-suggestions">
+                                    <span class="validation-icon"></span>
+                                    <datalist id="transaction-suggestions">
+                                        <!-- Will be populated dynamically -->
+                                    </datalist>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-amount">Amount</label>
+                                <div class="amount-input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                                        </svg>
+                                    </span>
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" 
+                                           id="transaction-amount" 
+                                           name="amount"
+                                           class="form-input" 
+                                           placeholder="0.00" 
+                                           step="0.01" 
+                                           min="0.01"
+                                           required
+                                           inputmode="decimal"
+                                           title="Please enter a valid amount">
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="amount-suggestion" style="display: none;">
+                                    <span class="suggestion-text">Similar transactions average: </span>
+                                    <button class="suggestion-btn">Use Average</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-category">Category</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                        </svg>
+                                    </span>
+                                    <select id="transaction-category" 
+                                            name="category"
+                                            class="form-input" 
+                                            required>
+                                        <option value="">Select a category</option>
+                                        <option value="food">Food & Dining</option>
+                                        <option value="transport">Transportation</option>
+                                        <option value="utilities">Utilities</option>
+                                        <option value="entertainment">Entertainment</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="salary">Salary</option>
+                                        <option value="investment">Investment</option>
+                                        <option value="health">Healthcare</option>
+                                        <option value="education">Education</option>
+                                        <option value="rent">Rent/Housing</option>
+                                        <option value="subscriptions">Subscriptions</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                                <div class="category-budget-info" style="display: none;">
+                                    <div class="budget-progress">
+                                        <div class="progress-bar"></div>
+                                    </div>
+                                    <span class="budget-status"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-date">Date</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="date" 
+                                           id="transaction-date" 
+                                           name="date"
+                                           class="form-input" 
+                                           required>
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="make-recurring" name="make-recurring" class="recurring-checkbox">
+                                    Make this a recurring transaction
+                                </label>
+                                <div class="recurring-options" style="display: none;">
+                                    <div class="input-wrapper">
+                                        <select name="frequency" class="form-input" id="recurring-frequency">
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="biweekly">Bi-weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="recurring-end">End Date (Optional)</label>
+                                        <input type="date" id="recurring-end" name="recurring-end" class="form-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-location">Location (Optional)</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" 
+                                           id="transaction-location" 
+                                           name="location"
+                                           class="form-input" 
+                                           placeholder="Enter location"
+                                           list="location-suggestions">
+                                    <datalist id="location-suggestions">
+                                        <!-- Will be populated dynamically -->
+                                    </datalist>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-tags">Tags (Optional)</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" 
+                                           id="transaction-tags" 
+                                           name="tags"
+                                           class="form-input" 
+                                           placeholder="Add tags (comma separated)"
+                                           data-tooltip="Add tags to better organize your transactions">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transaction-note">Note (Optional)</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
+                                        </svg>
+                                    </span>
+                                    <textarea id="transaction-note" 
+                                              name="notes"
+                                              class="form-input" 
+                                              placeholder="Add any additional details"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group attachments-group">
+                                <label>
+                                    <input type="checkbox" id="has-receipt" name="has-receipt" class="receipt-checkbox">
+                                    Add Receipt/Invoice
+                                </label>
+                                <div class="receipt-upload" style="display: none;">
+                                    <input type="file" 
+                                           id="receipt-file" 
+                                           name="receipt"
+                                           accept="image/*,.pdf"
+                                           class="form-input">
+                                    <small class="file-hint">Supported formats: Images, PDF (Max 5MB)</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" disabled>Add Transaction</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recurring Transaction Screen -->
+                <div id="recurring-transaction-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="manage-budget-main">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Recurring Transactions</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="recurring-filters">
+                                <div class="recurring-search">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                    <input type="text" placeholder="Search transactions..." />
+                                </div>
+                                
+                                <div class="recurring-filters-row">
+                                    <div class="filter-group">
+                                        <label>Status</label>
+                                        <select>
+                                            <option value="all">All Status</option>
+                                            <option value="active">Active</option>
+                                            <option value="paused">Paused</option>
+                                            <option value="skipped">Skipped</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Frequency</label>
+                                        <select>
+                                            <option value="all">All Frequencies</option>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="biweekly">Bi-weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Category</label>
+                                        <select>
+                                            <option value="all">All Categories</option>
+                                            <option value="bills">Bills & Utilities</option>
+                                            <option value="subscriptions">Subscriptions</option>
+                                            <option value="rent">Rent/Mortgage</option>
+                                            <option value="insurance">Insurance</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="recurring-list">
+                                <!-- Example of an active recurring transaction -->
+                                <div class="recurring-item">
+                                    <div class="recurring-header">
+                                        <div class="recurring-title">
+                                            <span class="recurring-name">Netflix Subscription</span>
+                                            <span class="recurring-amount">$14.99</span>
+                                        </div>
+                                        <span class="recurring-status active">Active</span>
+                                    </div>
+                                    
+                                    <div class="recurring-details">
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+                                            </svg>
+                                            <span>Next payment: Apr 15, 2024</span>
+                                        </div>
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+                                            </svg>
+                                            <span>Monthly on the 15th</span>
+                                        </div>
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                            </svg>
+                                            <span>Category: Subscriptions</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recurring-actions">
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                            </svg>
+                                            Edit
+                                        </button>
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                            </svg>
+                                            Skip Next
+                                        </button>
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Example of a paused recurring transaction -->
+                                <div class="recurring-item">
+                                    <div class="recurring-header">
+                                        <div class="recurring-title">
+                                            <span class="recurring-name">Gym Membership</span>
+                                            <span class="recurring-amount">$49.99</span>
+                                        </div>
+                                        <span class="recurring-status paused">Paused</span>
+                                    </div>
+                                    
+                                    <div class="recurring-details">
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+                                            </svg>
+                                            <span>Paused until: May 1, 2024</span>
+                                        </div>
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+                                            </svg>
+                                            <span>Monthly on the 1st</span>
+                                        </div>
+                                        <div class="recurring-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                            </svg>
+                                            <span>Category: Health & Fitness</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recurring-actions">
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                            Resume
+                                        </button>
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                            </svg>
+                                            Edit
+                                        </button>
+                                        <button class="recurring-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Empty state when no recurring transactions -->
+                            <div class="recurring-empty" style="display: none;">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/>
+                                </svg>
+                                <span class="recurring-empty-text">No recurring transactions found</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bills Screen -->
+                <div id="bills-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="manage-budget-main">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Upcoming Bills</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="bills-filters">
+                                <div class="bills-search">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                    <input type="text" placeholder="Search bills..." />
+                                </div>
+                                
+                                <div class="bills-filters-row">
+                                    <div class="filter-group">
+                                        <label>Status</label>
+                                        <select>
+                                            <option value="all">All Status</option>
+                                            <option value="upcoming">Upcoming</option>
+                                            <option value="overdue">Overdue</option>
+                                            <option value="paid">Paid</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Due Date</label>
+                                        <select>
+                                            <option value="all">All Dates</option>
+                                            <option value="this-week">This Week</option>
+                                            <option value="next-week">Next Week</option>
+                                            <option value="this-month">This Month</option>
+                                            <option value="next-month">Next Month</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="filter-group">
+                                        <label>Category</label>
+                                        <select>
+                                            <option value="all">All Categories</option>
+                                            <option value="utilities">Utilities</option>
+                                            <option value="rent">Rent/Mortgage</option>
+                                            <option value="insurance">Insurance</option>
+                                            <option value="subscriptions">Subscriptions</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bills-list" id="upcoming-bills">
+                                <!-- Example of an upcoming bill -->
+                                <div class="bill-item">
+                                    <div class="bill-header">
+                                        <div class="bill-title">
+                                            <span class="bill-name">Electricity Bill</span>
+                                            <span class="bill-amount">$85.50</span>
+                                        </div>
+                                        <span class="bill-status upcoming">Due in 3 days</span>
+                                    </div>
+                                    
+                                    <div class="bill-details">
+                                        <div class="bill-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+                                            </svg>
+                                            <span>Due: Apr 20, 2024</span>
+                                        </div>
+                                        <div class="bill-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                            </svg>
+                                            <span>Category: Utilities</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bill-actions">
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                            </svg>
+                                            Mark as Paid
+                                        </button>
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                            </svg>
+                                            Edit
+                                        </button>
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Example of an overdue bill -->
+                                <div class="bill-item">
+                                    <div class="bill-header">
+                                        <div class="bill-title">
+                                            <span class="bill-name">Internet Service</span>
+                                            <span class="bill-amount">$75.00</span>
+                                        </div>
+                                        <span class="bill-status overdue">5 days overdue</span>
+                                    </div>
+                                    
+                                    <div class="bill-details">
+                                        <div class="bill-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+                                            </svg>
+                                            <span>Due: Apr 12, 2024</span>
+                                        </div>
+                                        <div class="bill-detail-item">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                            </svg>
+                                            <span>Category: Utilities</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bill-actions">
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                                            </svg>
+                                            Mark as Paid
+                                        </button>
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                            </svg>
+                                            Edit
+                                        </button>
+                                        <button class="bill-action-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Empty state when no bills -->
+                            <div class="bills-empty" style="display: none;">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/>
+                                </svg>
+                                <span class="bills-empty-text">No bills found</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Expense Screen -->
+                <div id="add-expenses-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="manage-budget-main">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Add Expense</h2>
+                        </div>
+
+                        <div class="smart-tip expense-tip">
+                            <span class="tip-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                </svg>
+                            </span>
+                            <span class="tip-text">Categorize expenses to track your spending patterns</span>
+                        </div>
+
+                        <form class="transaction-form" id="add-expense-form">
+                            <div class="form-group">
+                                <label for="expense-name">Name</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="text" 
+                                           id="expense-name" 
+                                           name="expense-name"
+                                           class="form-input" 
+                                           placeholder="Enter expense name (e.g., Coffee Shop)" 
+                                           required
+                                           pattern=".{3,}"
+                                           title="Name must be at least 3 characters long"
+                                           data-tooltip="Enter the name of your expense">
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expense-amount">Amount</label>
+                                <div class="amount-input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                                        </svg>
+                                    </span>
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" 
+                                           id="expense-amount" 
+                                           name="amount"
+                                           class="form-input" 
+                                           placeholder="0.00" 
+                                           step="0.01" 
+                                           min="0.01"
+                                           required
+                                           inputmode="decimal"
+                                           data-tooltip="Enter the expense amount"
+                                           title="Please enter a valid amount">
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expense-category">Category</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                        </svg>
+                                    </span>
+                                    <select id="expense-category" 
+                                            name="category"
+                                            class="form-input" 
+                                            required
+                                            data-tooltip="Select expense category">
+                                        <option value="">Select a category</option>
+                                        <option value="food">Food & Dining</option>
+                                        <option value="transport">Transportation</option>
+                                        <option value="utilities">Utilities</option>
+                                        <option value="entertainment">Entertainment</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="health">Healthcare</option>
+                                        <option value="education">Education</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expense-date">Date</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                        </svg>
+                                    </span>
+                                    <input type="date" 
+                                           id="expense-date" 
+                                           name="date"
+                                           class="form-input" 
+                                           required
+                                           data-tooltip="Select expense date">
+                                    <span class="validation-icon"></span>
+                                </div>
+                                <span class="error-message"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" 
+                                           id="recurring-expense" 
+                                           name="recurring"
+                                           class="recurring-checkbox">
+                                    Make this a recurring expense
+                                </label>
+                                <div class="recurring-options" style="display: none;">
+                                    <select name="frequency" class="form-input" id="recurring-frequency">
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="yearly">Yearly</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expense-note">Note (Optional)</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
+                                        </svg>
+                                    </span>
+                                    <textarea id="expense-note" 
+                                              name="notes"
+                                              class="form-input" 
+                                              placeholder="Add any additional details"
+                                              data-tooltip="Add optional notes about this expense"></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" disabled>Add Expense</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Adjust Budget Screen -->
+                <div id="adjust-budget-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="manage-budget-main">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Adjust Budget</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="category-adjustments">
+                                <!-- Budget adjustment content will go here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Set Goal Screen -->
+                <div id="set-goal-screen" class="manage-budget-screen">
+                    <div class="grid-container">
+                        <div class="screen-header">
+                            <button class="back-btn" data-screen="manage-budget-main">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back
+                            </button>
+                            <h2 class="screen-title">Set Financial Goal</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="goal-setup">
+                                <!-- Goal setup content will go here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab Content -->
+            <div class="tab-content" id="settings-tab">
+                <div class="grid-container">
+                    <div class="settings-header">
+                        <h2>Settings</h2>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Display</h3>
+                        <div class="settings-card">
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">🌙</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Dark Mode</span>
+                                        <span class="setting-description">Switch to dark theme</span>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="dark-mode-toggle" class="toggle-input">
+                                    <label for="dark-mode-toggle" class="toggle-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">🎨</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">High Contrast</span>
+                                        <span class="setting-description">Increase contrast for better visibility</span>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="high-contrast-toggle" class="toggle-input">
+                                    <label for="high-contrast-toggle" class="toggle-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">📏</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Text Size</span>
+                                        <span class="setting-description">Adjust the size of text throughout the app</span>
+                                    </div>
+                                </div>
+                                <div class="text-size-options">
+                                    <button class="size-btn">S</button>
+                                    <button class="size-btn active">M</button>
+                                    <button class="size-btn">L</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Notifications</h3>
+                        <div class="settings-card">
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">💳</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Account Activity</span>
+                                        <span class="setting-description">Get notified about transactions and balance changes</span>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="account-activity-toggle" class="toggle-input" checked>
+                                    <label for="account-activity-toggle" class="toggle-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">🔔</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Bill Reminders</span>
+                                        <span class="setting-description">Get notified about upcoming bills</span>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="bill-reminders-toggle" class="toggle-input" checked>
+                                    <label for="bill-reminders-toggle" class="toggle-label"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Currency & Data</h3>
+                        <div class="settings-card">
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">💱</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Display Currency</span>
+                                        <span class="setting-description">Choose your preferred currency</span>
+                                    </div>
+                                </div>
+                                <select class="currency-select">
+                                    <option value="usd">USD ($)</option>
+                                    <option value="eur">EUR (€)</option>
+                                    <option value="gbp">GBP (£)</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <span class="setting-icon">💾</span>
+                                    <div class="setting-info">
+                                        <span class="setting-title">Export Data</span>
+                                        <span class="setting-description">Download your financial data</span>
+                                    </div>
+                                </div>
+                                <button class="export-btn">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 3L4 9v12h16V9l-8-6zm0 2.5L18 11v8H6v-8l6-5.5z"/>
+                </svg>
+                <span class="nav-text">Home</span>
+            </div>
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M4 19h16v-2H4v2zm0-4h16v-2H4v2zm0-4h16V9H4v2zm0-4h16V5H4v2z"/>
+                </svg>
+                <span class="nav-text">Reports</span>
+            </div>
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
+                <span class="nav-text">Manage Budget</span>
+            </div>
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c.12.22.39.3.61.22l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+                </svg>
+                <span class="nav-text">Settings</span>
+            </div>
+        </nav>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
