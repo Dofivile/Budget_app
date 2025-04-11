@@ -8,6 +8,7 @@ import BillsManager from './bills.js';
 import GoalsManager from './goals.js';
 import { initializeReportsNavigation, showBudgetScreen, initializeTabNavigation } from './navigation.js';
 import BudgetManager from './budget.js';
+import VirtualKeyboard from './keyboard.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Settings
@@ -25,12 +26,107 @@ document.addEventListener('DOMContentLoaded', function() {
     // Transaction Management
     setupTransactionForms();
     
+    // Initialize Virtual Keyboard
+    let keyboard = null;
+    
+    if (settings.virtualKeyboard) {
+        keyboard = new VirtualKeyboard({
+            theme: settings.darkMode ? 'dark-theme' : 'light-theme',
+            container: document.querySelector('.phone-frame') || document.body
+        });
+        
+        // Handle the case when keyboard is open and user taps outside the keyboard or active input
+        document.addEventListener('click', function(e) {
+            if (keyboard && keyboard.isOpen) {
+                // Check if clicked element is not the keyboard, its children, or the active input
+                if (!keyboard.keyboardElement.contains(e.target) && 
+                    e.target !== keyboard.activeInput &&
+                    !e.target.closest('.keyboard-key')) {
+                    keyboard.close();
+                }
+            }
+        });
+        
+        // Handle bottom navigation clicks when keyboard is open
+        const bottomNav = document.querySelector('.bottom-nav');
+        if (bottomNav) {
+            bottomNav.addEventListener('click', function() {
+                if (keyboard && keyboard.isOpen) {
+                    keyboard.close();
+                }
+            });
+        }
+    }
+    
+    // The keyboard will now automatically detect dark mode changes via MutationObserver
+    // No need for manual theme changing via events anymore
+    
+    // Listen for keyboard setting changes
+    document.addEventListener('keyboardSettingChanged', function(e) {
+        if (e.detail.enabled) {
+            // Create keyboard if it doesn't exist
+            if (!keyboard) {
+                keyboard = new VirtualKeyboard({
+                    container: document.querySelector('.phone-frame') || document.body
+                });
+            }
+        } else {
+            // Remove keyboard if it exists
+            if (keyboard) {
+                const keyboardElement = document.getElementById('virtual-keyboard');
+                if (keyboardElement) {
+                    keyboardElement.remove();
+                }
+                keyboard = null;
+            }
+        }
+    });
+    
     // Event delegation for screen navigation
     document.addEventListener('click', function(event) {
         const button = event.target.closest('.action-btn');
         if (button && button.dataset.screen) {
             event.preventDefault();
             showBudgetScreen(button.dataset.screen);
+            
+            // Initialize transaction form when Add Transaction button is clicked
+            if (button.dataset.screen === 'add-transaction-screen') {
+                const transactionForm = document.getElementById('add-transaction-form');
+                if (transactionForm) {
+                    // Reset form on every open
+                    transactionForm.reset();
+                    
+                    // Set default date
+                    const dateInput = transactionForm.querySelector('input[type="date"]');
+                    if (dateInput) {
+                        dateInput.valueAsDate = new Date();
+                    }
+                    
+                    // Reset validation styling
+                    const inputWrappers = transactionForm.querySelectorAll('.input-wrapper, .amount-input-wrapper');
+                    inputWrappers.forEach(wrapper => {
+                        wrapper.classList.remove('valid');
+                        wrapper.classList.remove('invalid');
+                    });
+                    
+                    const errorMessages = transactionForm.querySelectorAll('.error-message');
+                    errorMessages.forEach(msg => {
+                        msg.textContent = '';
+                    });
+                    
+                    // Disable submit button initially
+                    const submitButton = transactionForm.querySelector('.submit-btn');
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.classList.remove('loading');
+                        submitButton.innerHTML = 'Add Transaction';
+                    }
+                    
+                    // Update suggestions
+                    updateTransactionSuggestions();
+                    updateLocationSuggestions();
+                }
+            }
         }
 
         // Handle back buttons
@@ -136,6 +232,58 @@ function processRecurringTransactions() {
     }
 }
 
+// Transaction suggestions functions
+function updateTransactionSuggestions() {
+    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+    const datalist = document.getElementById('transaction-suggestions');
+    if (!datalist) return;
+    
+    const uniqueNames = [...new Set(transactions.map(t => t.name))];
+    
+    datalist.innerHTML = uniqueNames
+        .map(name => `<option value="${name}">`)
+        .join('');
+}
+
+function updateLocationSuggestions() {
+    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+    const datalist = document.getElementById('location-suggestions');
+    if (!datalist) return;
+    
+    const uniqueLocations = [...new Set(transactions
+        .filter(t => t.location)
+        .map(t => t.location))];
+    
+    datalist.innerHTML = uniqueLocations
+        .map(location => `<option value="${location}">`)
+        .join('');
+}
+
+// Create or update Category Budget Info function
+function updateCategoryBudgetInfo(category) {
+    const budgetData = BudgetDataManager.data.categories[category];
+    const categoryBudgetInfo = document.querySelector('.category-budget-info');
+    if (!budgetData || !categoryBudgetInfo) return;
+
+    const spent = budgetData.spent;
+    const budget = budgetData.budget;
+    const percentage = (spent / budget) * 100;
+    
+    categoryBudgetInfo.style.display = 'block';
+    categoryBudgetInfo.querySelector('.progress-bar').style.width = `${percentage}%`;
+    
+    const status = categoryBudgetInfo.querySelector('.budget-status');
+    status.textContent = `${formatCurrency(spent)} of ${formatCurrency(budget)} spent`;
+    
+    // Add warning if close to budget
+    if (percentage > 80) {
+        status.classList.add('warning');
+        showToast('Warning: Close to budget limit for this category', 'warning');
+    } else {
+        status.classList.remove('warning');
+    }
+}
+
 // Transaction Form Handling
 function setupTransactionForms() {
     // Add event listeners for transaction forms
@@ -188,6 +336,90 @@ function setupTransactionForm(transactionForm) {
         const receiptUpload = transactionForm.querySelector('.receipt-upload');
         const amountSuggestion = transactionForm.querySelector('.amount-suggestion');
         const categoryBudgetInfo = transactionForm.querySelector('.category-budget-info');
+        const submitButton = transactionForm.querySelector('.submit-btn');
+        const dateInput = transactionForm.querySelector('#transaction-date');
+        const locationInput = transactionForm.querySelector('#transaction-location');
+        
+        // Set default date to today
+        if (dateInput) {
+            dateInput.valueAsDate = new Date();
+        }
+        
+        // Enable form validation and submit button logic
+        const requiredFields = transactionForm.querySelectorAll('[required]');
+        
+        // Form validation function to enable/disable submit button
+        function validateForm() {
+            let isValid = true;
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    showInvalidField(field);
+                } else {
+                    showValidField(field);
+                }
+            });
+            
+            submitButton.disabled = !isValid;
+            return isValid;
+        }
+        
+        // Show visual indication of invalid field
+        function showInvalidField(field) {
+            const wrapper = field.closest('.input-wrapper') || field.parentNode;
+            const errorMessage = wrapper.nextElementSibling;
+            if (errorMessage && errorMessage.classList.contains('error-message')) {
+                if (!field.value) {
+                    errorMessage.textContent = 'This field is required';
+                }
+                wrapper.classList.add('invalid');
+                wrapper.classList.remove('valid');
+            }
+        }
+        
+        // Show visual indication of valid field
+        function showValidField(field) {
+            const wrapper = field.closest('.input-wrapper') || field.parentNode;
+            const errorMessage = wrapper.nextElementSibling;
+            if (errorMessage && errorMessage.classList.contains('error-message')) {
+                errorMessage.textContent = '';
+                wrapper.classList.remove('invalid');
+                wrapper.classList.add('valid');
+            }
+        }
+        
+        // Add validation listeners to all required fields
+        requiredFields.forEach(field => {
+            field.addEventListener('input', () => {
+                if (field.value) {
+                    showValidField(field);
+                } else {
+                    showInvalidField(field);
+                }
+                validateForm();
+            });
+            
+            field.addEventListener('blur', () => {
+                if (!field.value) {
+                    showInvalidField(field);
+                }
+                validateForm();
+            });
+        });
+        
+        // Amount validation for non-negative numbers
+        amountInput?.addEventListener('input', function() {
+            if (this.value && parseFloat(this.value) <= 0) {
+                const wrapper = this.closest('.amount-input-wrapper');
+                const errorMessage = wrapper.nextElementSibling;
+                if (errorMessage) {
+                    errorMessage.textContent = 'Amount must be greater than zero';
+                    wrapper.classList.add('invalid');
+                    wrapper.classList.remove('valid');
+                }
+            }
+            validateForm();
+        });
         
         // Smart categorization based on hashtags
     nameInput?.addEventListener('input', function() {
@@ -202,20 +434,13 @@ function setupTransactionForm(transactionForm) {
                     updateCategoryBudgetInfo(category);
                 }
             }
+            
+            // Validate form after input
+            validateForm();
         });
 
         // Transaction name suggestions
-        function updateTransactionSuggestions() {
-            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-            const datalist = document.getElementById('transaction-suggestions');
-        if (!datalist) return;
-        
-            const uniqueNames = [...new Set(transactions.map(t => t.name))];
-            
-            datalist.innerHTML = uniqueNames
-                .map(name => `<option value="${name}">`)
-                .join('');
-        }
+        updateTransactionSuggestions();
 
         // Amount suggestions based on similar transactions
     amountInput?.addEventListener('focus', function() {
@@ -240,48 +465,9 @@ function setupTransactionForm(transactionForm) {
         });
 
         // Category budget information
-        function updateCategoryBudgetInfo(category) {
-            const budgetData = BudgetDataManager.data.categories[category];
-        if (!budgetData || !categoryBudgetInfo) return;
-
-            const spent = budgetData.spent;
-            const budget = budgetData.budget;
-            const percentage = (spent / budget) * 100;
-            
-            categoryBudgetInfo.style.display = 'block';
-            categoryBudgetInfo.querySelector('.progress-bar').style.width = `${percentage}%`;
-            
-            const status = categoryBudgetInfo.querySelector('.budget-status');
-            status.textContent = `${formatCurrency(spent)} of ${formatCurrency(budget)} spent`;
-            
-            // Add warning if close to budget
-            if (percentage > 80) {
-                status.classList.add('warning');
-                showToast('Warning: Close to budget limit for this category', 'warning');
-            } else {
-                status.classList.remove('warning');
-            }
-        }
-
     categorySelect?.addEventListener('change', function() {
             updateCategoryBudgetInfo(this.value);
         });
-
-        // Location suggestions
-        const locationInput = transactionForm.querySelector('#transaction-location');
-        function updateLocationSuggestions() {
-            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-            const datalist = document.getElementById('location-suggestions');
-        if (!datalist) return;
-        
-            const uniqueLocations = [...new Set(transactions
-                .filter(t => t.location)
-                .map(t => t.location))];
-            
-            datalist.innerHTML = uniqueLocations
-                .map(location => `<option value="${location}">`)
-                .join('');
-        }
 
         // Recurring transaction handling
     makeRecurringCheckbox?.addEventListener('change', function() {
@@ -316,6 +502,12 @@ function setupTransactionForm(transactionForm) {
     transactionForm?.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Final validation before submission
+            if (!validateForm()) {
+                showToast('Please fill in all required fields correctly', 'error');
+                return;
+            }
+            
             const formData = new FormData(this);
             const transaction = {
                 id: Date.now(),
@@ -331,11 +523,17 @@ function setupTransactionForm(transactionForm) {
                 recurringFrequency: formData.get('frequency'),
                 recurringEndDate: formData.get('recurring-end'),
                 hasReceipt: formData.get('has-receipt') === 'on',
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
             };
 
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.classList.add('loading');
+            submitButton.innerHTML = 'Saving...';
+
             // Handle receipt file
-            if (transaction.hasReceipt && receiptInput.files[0]) {
+            if (transaction.hasReceipt && receiptInput?.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     transaction.receiptData = e.target.result;
@@ -343,7 +541,10 @@ function setupTransactionForm(transactionForm) {
                 };
                 reader.readAsDataURL(receiptInput.files[0]);
             } else {
-                saveTransaction(transaction);
+                // Simulate slight delay for better UX
+                setTimeout(() => {
+                    saveTransaction(transaction);
+                }, 500);
             }
         });
 
@@ -367,6 +568,23 @@ function setupTransactionForm(transactionForm) {
         if (categoryBudgetInfo) categoryBudgetInfo.style.display = 'none';
         if (recurringOptions) recurringOptions.style.display = 'none';
         if (receiptUpload) receiptUpload.style.display = 'none';
+            
+            // Restore submit button state
+            submitButton.disabled = true;
+            submitButton.classList.remove('loading');
+            submitButton.innerHTML = 'Add Transaction';
+            
+            // Reset validation styling
+            const inputWrappers = transactionForm.querySelectorAll('.input-wrapper, .amount-input-wrapper');
+            inputWrappers.forEach(wrapper => {
+                wrapper.classList.remove('valid');
+                wrapper.classList.remove('invalid');
+            });
+            
+            const errorMessages = transactionForm.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.textContent = '';
+            });
 
             // Navigate back
             showBudgetScreen('manage-budget-main');
@@ -383,6 +601,9 @@ function setupTransactionForm(transactionForm) {
                 localStorage.setItem('recurring', JSON.stringify(recurring));
                 showToast('Recurring transaction saved!', 'success');
             }
+            
+            // Update UI with new transaction data
+            BudgetDataManager.updateUI();
         }
 
         // Initialize suggestions

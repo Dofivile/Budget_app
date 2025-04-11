@@ -239,4 +239,61 @@ h2, h3, h4 {
 
 [data-text-size="large"] {
     font-size: 1.2rem;
+}
+
+/* Root font settings for text size adjustments */
+html, body {
+    font-size: var(--applied-font-size, 16px);
+}
+
+/* Ensure phone frame and its contents inherit font size */
+.phone-frame {
+    font-size: inherit;
+}
+
+.app-content, 
+.app-content * {
+    font-size: inherit;
+}
+
+/* Apply text size classes for better specificity */
+.text-small {
+    font-size: var(--small-font-size, 14px);
+}
+
+.text-medium {
+    font-size: var(--base-font-size, 16px);
+}
+
+.text-large {
+    font-size: var(--large-font-size, 18px);
+}
+
+/* Adjust relative font sizes for specific elements */
+h1, h2, h3, h4, h5, h6 {
+    font-size: revert;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+/* Special text size elements */
+.extra-large-text {
+    font-size: 1.75em !important;
+}
+
+.large-text {
+    font-size: 1.4em !important;
+}
+
+.normal-text {
+    font-size: 1em !important;
+}
+
+.small-text {
+    font-size: 0.85em !important;
+}
+
+.extra-small-text {
+    font-size: 0.75em !important;
 } 

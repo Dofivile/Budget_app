@@ -451,4 +451,94 @@ select.form-control {
         margin-bottom: 0;
         margin-right: var(--spacing-2);
     }
+}
+
+/* Add these styles for form validation feedback */
+
+/* Input validation styling */
+.input-wrapper.valid, .amount-input-wrapper.valid {
+    border-color: #34C759;
+}
+
+.input-wrapper.invalid, .amount-input-wrapper.invalid {
+    border-color: #FF3B30;
+}
+
+.input-wrapper.valid .validation-icon:after, 
+.amount-input-wrapper.valid .validation-icon:after {
+    content: "✓";
+    color: #34C759;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-wrapper.invalid .validation-icon:after, 
+.amount-input-wrapper.invalid .validation-icon:after {
+    content: "!";
+    color: #FF3B30;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+}
+
+.error-message {
+    color: #FF3B30;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    min-height: 1rem;
+}
+
+/* Form feedback animations */
+@keyframes shakeInput {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.input-wrapper.invalid, .amount-input-wrapper.invalid {
+    animation: shakeInput 0.4s ease-in-out;
+}
+
+/* Enhance submit button styles */
+.submit-btn {
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.submit-btn:not(:disabled):hover {
+    background-color: #0056b3;
+}
+
+/* Loading state */
+.submit-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.submit-btn.loading:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 } 

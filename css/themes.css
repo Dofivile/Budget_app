@@ -1,37 +1,51 @@
+/* Theme Variables */
+:root {
+    --background-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --text-muted: #6c757d;
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Default font size settings */
+    --base-font-size: 16px;
+    --small-font-size: 12px;
+    --large-font-size: 20px;
+    
+    /* Applied font size based on settings */
+    --applied-font-size: var(--base-font-size);
+}
+
 /* Theme-specific styles */
 
 /* Dark theme */
-[data-theme="dark"] {
-    --primary-color: #42a5f5;
-    --primary-light: #80d6ff;
-    --primary-dark: #0077c2;
-    --secondary-color: #ffb74d;
-    --secondary-light: #ffe97d;
-    --secondary-dark: #c88719;
+[data-theme="dark"],
+.dark-mode {
     --background-color: #121212;
-    --surface-color: #222222;
-    --card-color: #2d2d2d;
-    --text-color: #e0e0e0;
-    --text-light: #b0b0b0;
+    --surface-color: #1e1e1e;
+    --text-color: #f0f0f0;
+    --text-muted: #aaaaaa;
+    --primary-color: #4dabf7;
     --border-color: #444444;
-    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 /* High contrast theme */
-[data-theme="high-contrast"] {
-    --primary-color: #0066cc;
-    --primary-light: #3399ff;
-    --primary-dark: #004080;
-    --secondary-color: #ff6600;
-    --secondary-light: #ff944d;
-    --secondary-dark: #cc5200;
-    --background-color: #ffffff;
-    --surface-color: #f0f0f0;
-    --card-color: #ffffff;
-    --text-color: #000000;
-    --text-light: #333333;
-    --border-color: #000000;
-    --shadow-color: rgba(0, 0, 0, 0.2);
+[data-contrast="high"],
+.high-contrast {
+    --text-color: #ffffff;
+    --text-muted: #eeeeee;
+    --background-color: #000000;
+    --surface-color: #000000;
+    --primary-color: #ffcc00;
+    --border-color: #ffffff;
+    --shadow-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Theme transitions */
@@ -41,4 +55,88 @@ body {
 
 [data-theme] * {
     transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Text Size Settings */
+[data-text-size="small"],
+html[data-text-size="small"],
+body[data-text-size="small"] {
+    --applied-font-size: var(--small-font-size);
+    font-size: var(--small-font-size) !important;
+}
+
+[data-text-size="medium"],
+html[data-text-size="medium"],
+body[data-text-size="medium"] {
+    --applied-font-size: var(--base-font-size);
+    font-size: var(--base-font-size) !important;
+}
+
+[data-text-size="large"],
+html[data-text-size="large"],
+body[data-text-size="large"] {
+    --applied-font-size: var(--large-font-size);
+    font-size: var(--large-font-size) !important;
+}
+
+/* Force all text elements to inherit font size */
+[data-text-size] * {
+    font-size: inherit;
+}
+
+/* Apply font size to all text elements */
+.app-content {
+    font-size: var(--applied-font-size);
+}
+
+/* Font size for specific elements */
+.settings-section h3,
+.screen-title,
+.reports-header h2,
+.budget-summary h2 {
+    font-size: calc(var(--applied-font-size) * 1.25);
+}
+
+.setting-title {
+    font-size: calc(var(--applied-font-size) * 1.1);
+}
+
+.setting-description,
+.small-text,
+.text-muted {
+    font-size: calc(var(--applied-font-size) * 0.85);
+}
+
+.balance-amount,
+.large-text {
+    font-size: calc(var(--applied-font-size) * 1.4);
+}
+
+/* Adjust form inputs and buttons */
+input, select, textarea, button {
+    font-size: var(--applied-font-size);
+}
+
+/* Ensure line heights adjust appropriately */
+body {
+    line-height: 1.5;
+}
+
+/* Ensure that text size is respected on phone frame */
+.phone-frame {
+    font-size: var(--applied-font-size);
+}
+
+/* Navigation and action buttons */
+.nav-text,
+.action-btn {
+    font-size: calc(var(--applied-font-size) * 0.9);
+}
+
+/* Make sure cards and other containers adjust to content */
+.card,
+.settings-card,
+.balance-card {
+    height: auto;
+    min-height: 0;
 } 
