@@ -1,9 +1,5 @@
 // Bills Management
 
-import { formatCurrency } from './utils.js';
-import { settings } from './settings.js';
-import { showToast } from './utils.js';
-
 const BillsManager = {
     data: {
         bills: JSON.parse(localStorage.getItem('bills') || '[]')
@@ -317,6 +313,4 @@ const BillsManager = {
 
         this.loadBills();
     }
-};
-
-export default BillsManager; 
+}; 

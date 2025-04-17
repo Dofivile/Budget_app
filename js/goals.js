@@ -1,7 +1,5 @@
 // Goals Management
 
-import { showToast } from './utils.js';
-
 const GoalsManager = {
     data: {
         goals: JSON.parse(localStorage.getItem('goals') || '[]')
@@ -552,6 +550,4 @@ const GoalsManager = {
         this.updateViewGoalsButtonState();
         showToast('All goals have been cleared', 'info');
     }
-};
-
-export default GoalsManager; 
+}; 

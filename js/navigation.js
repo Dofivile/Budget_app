@@ -90,4 +90,4 @@ function initializeTabNavigation() {
     });
 }
 
-export { initializeReportsNavigation, showBudgetScreen, initializeTabNavigation }; 
+// No export statement - functions are now globally available 

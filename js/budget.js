@@ -1,7 +1,5 @@
 // Budget Management
 
-import { showToast } from './utils.js';
-
 const BudgetManager = {
     data: {
         allocations: JSON.parse(localStorage.getItem('budget_allocations') || '[]'),
@@ -360,6 +358,4 @@ const BudgetManager = {
             progressLabel.textContent = `$${totalAllocated.toFixed(2)} allocated of $${this.data.totalBudget.toFixed(2)}`;
         }
     }
-};
-
-export default BudgetManager; 
+}; 

@@ -67,4 +67,4 @@ function calculateNextDueDate(startDate, frequency) {
     return date.toISOString().split('T')[0];
 }
 
-export { formatCurrency, showToast, calculateNextDueDate }; 
+// No export statement - functions are now globally available 

@@ -698,7 +698,4 @@ class VirtualKeyboard {
             this.positionKeyboard();
         }
     }
-}
-
-// Export the class
-export default VirtualKeyboard; 
+} 

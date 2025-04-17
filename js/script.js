@@ -1,14 +1,6 @@
 // Main application script
 
-// Import dependencies from modular files
-import { formatCurrency, showToast, calculateNextDueDate } from './utils.js';
-import { settings, initializeSettings } from './settings.js';
-import BudgetDataManager from './budgetData.js';
-import BillsManager from './bills.js';
-import GoalsManager from './goals.js';
-import { initializeReportsNavigation, showBudgetScreen, initializeTabNavigation } from './navigation.js';
-import BudgetManager from './budget.js';
-import VirtualKeyboard from './keyboard.js';
+// Remove import statements - all dependencies are now global via script tags
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Settings

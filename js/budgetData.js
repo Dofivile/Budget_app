@@ -1,7 +1,5 @@
 // Budget Data Manager for transactions
 
-import { formatCurrency } from './utils.js';
-
 const BudgetDataManager = {
     data: {
         transactions: JSON.parse(localStorage.getItem('transactions') || '[]'),
@@ -103,6 +101,4 @@ const BudgetDataManager = {
         
         return forecast;
     }
-};
-
-export default BudgetDataManager; 
+}; 

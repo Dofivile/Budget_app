@@ -1,7 +1,5 @@
 // Settings management
 
-import { formatCurrency, showToast } from './utils.js';
-
 // Get stored settings or set defaults
 const defaultSettings = {
     darkMode: false,
@@ -17,7 +15,7 @@ const defaultSettings = {
 };
 
 // Initialize settings from local storage
-export const settings = JSON.parse(localStorage.getItem('settings')) || defaultSettings;
+const settings = JSON.parse(localStorage.getItem('settings')) || defaultSettings;
 
 function updateTextSizeButtons() {
     const textSizeButtons = document.querySelectorAll('.size-btn');
@@ -134,7 +132,7 @@ function exportData() {
 }
 
 // Initialize UI based on settings
-export function initializeSettings() {
+function initializeSettings() {
     // Apply all settings at once
     applySettings();
     
@@ -298,4 +296,4 @@ function saveSettings() {
     localStorage.setItem('settings', JSON.stringify(settings));
 }
 
-export { applySettings, requestNotificationPermission, updateCurrencyDisplay }; 
+// No export statements - all functions are now globally available 
