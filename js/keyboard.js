@@ -472,11 +472,24 @@ class VirtualKeyboard {
         // Get the current value
         const value = this.activeInput.value;
         
-        // Insert the key at cursor position
-        this.activeInput.value = value.substring(0, startPos) + key + value.substring(endPos);
+        // Check if this is a numeric input
+        const isNumericInput = this.activeInput.type === 'number' || 
+                              this.activeInput.inputmode === 'numeric' || 
+                              this.activeInput.inputmode === 'decimal';
         
-        // Move cursor position after the inserted key
-        this.activeInput.selectionStart = this.activeInput.selectionEnd = startPos + key.length;
+        if (isNumericInput && key !== 'backspace' && key !== 'done') {
+            // For numeric inputs, append the number to the end (right side)
+            this.activeInput.value = value + key;
+            
+            // Set cursor at the end
+            this.activeInput.selectionStart = this.activeInput.selectionEnd = this.activeInput.value.length;
+        } else {
+            // Standard behavior for text inputs - insert at cursor position
+            this.activeInput.value = value.substring(0, startPos) + key + value.substring(endPos);
+            
+            // Move cursor position after the inserted key
+            this.activeInput.selectionStart = this.activeInput.selectionEnd = startPos + key.length;
+        }
         
         // Trigger input event
         const event = new Event('input', { bubbles: true });
