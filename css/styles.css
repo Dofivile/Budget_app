@@ -154,12 +154,342 @@ body {
 }
 
 .grid-container {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+    height: 100%;
+}
+
+.main-budget-card {
+    grid-column: 1 / -1;
+}
+
+.quick-actions-card {
+    grid-column: 1 / -1;
+}
+
+.upcoming-bills-card {
+    grid-column: 1 / 2;
+}
+
+.recent-activity-card {
+    grid-column: 2 / 3;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .upcoming-bills-card,
+    .recent-activity-card {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Main Budget Card */
+.main-budget-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-budget-card h2 {
+    font-size: var(--text-xl);
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+.budget-content {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - var(--bottom-nav-height));
-    padding: 20px;
     gap: 20px;
+}
+
+.budget-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.budget-total, .budget-remaining {
+    display: flex;
+    flex-direction: column;
+}
+
+.budget-total .label,
+.budget-remaining .label {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.budget-total .amount,
+.budget-remaining .amount {
+    font-size: var(--text-2xl);
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.budget-remaining .period {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.budget-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar-container {
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
     overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+/* Warning Alert */
+.warning-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff3e0;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #fb8c00;
+}
+
+.alert-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-title {
+    font-size: var(--text-base);
+    color: #e65100;
+    font-weight: 500;
+}
+
+.alert-message {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+/* Quick Actions Card */
+.quick-actions-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: var(--background-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 24px;
+}
+
+.btn-text {
+    font-size: var(--text-base);
+    color: var(--text-color);
+}
+
+/* Cards */
+.upcoming-bills-card,
+.recent-activity-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upcoming-bills-card h3,
+.recent-activity-card h3 {
+    font-size: var(--text-lg);
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+/* Bills List */
+.bills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bill-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--background-light);
+}
+
+.bill-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 48px;
+}
+
+.bill-date .date {
+    font-size: var(--text-lg);
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.bill-date .month {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+.bill-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bill-name {
+    font-size: var(--text-base);
+    color: var(--text-color);
+}
+
+.bill-category {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+.bill-amount {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.bill-amount.warning {
+    color: #e65100;
+}
+
+/* Activity List */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--background-light);
+}
+
+.activity-amount {
+    font-size: var(--text-base);
+    font-weight: 500;
+}
+
+.activity-amount.expense {
+    color: #e53935;
+}
+
+.activity-amount.income {
+    color: #43a047;
+}
+
+.activity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.activity-name {
+    font-size: var(--text-base);
+    color: var(--text-color);
+}
+
+.activity-category {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+.activity-time {
+    font-size: var(--text-base);
+    color: var(--text-light);
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .main-budget-card,
+[data-theme="dark"] .quick-actions-card,
+[data-theme="dark"] .upcoming-bills-card,
+[data-theme="dark"] .recent-activity-card {
+    background: var(--surface-dark);
+}
+
+[data-theme="dark"] .bill-item,
+[data-theme="dark"] .activity-item {
+    background: var(--surface-dark-secondary);
+}
+
+[data-theme="dark"] .warning-alert {
+    background: rgba(251, 140, 0, 0.1);
+    border-left-color: #fb8c00;
+}
+
+[data-theme="dark"] .progress-bar-container {
+    background: rgba(241, 245, 249, 0.1);
+}
+
+/* High contrast mode */
+[data-contrast="high"] .bill-amount.warning,
+[data-contrast="high"] .activity-amount.expense {
+    color: #ff1744;
+}
+
+[data-contrast="high"] .activity-amount.income {
+    color: #00e676;
 }
 
 /* Add some basic styling for grid items when you add them */
@@ -178,11 +508,11 @@ body {
     bottom: 0;
     width: 100%;
     height: 80px;
-    background-color: var(--bg-card);
+    background-color: var(--background-light);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #e2e8f0;
     padding: 12px 0;
 }
 
@@ -197,18 +527,19 @@ body {
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    padding: 10px 24px;
+    padding: 12px;
     border-radius: 8px;
     transition: all 0.2s ease;
-    color: var(--nav-text);
+    color: var(--text-color);
 }
 
 .nav-item:hover {
-    background-color: #f8f9fa;
+    background-color: #e2e8f0;
 }
 
 .nav-item.active {
-    color: var(--nav-active);
+    background-color: #e2e8f0;
+    border-radius: 8px;
 }
 
 .nav-icon {
@@ -219,8 +550,8 @@ body {
 }
 
 .nav-text {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--text-color);
 }
 
 /* Remove the active transform since it doesn't match the design */
@@ -230,28 +561,34 @@ body {
 
 /* Home Tab Styles */
 .budget-summary {
-    grid-column: span 2;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.budget-summary h2 {
+    font-size: var(--text-xl);
+    color: var(--primary-color);
+    margin-bottom: 16px;
 }
 
 .balance-card {
-    margin-top: 15px;
-    text-align: center;
+    background: var(--background-light);
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .balance-amount {
-    font-size: 36px;
+    font-size: var(--text-2xl);
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--primary-color);
 }
 
 .balance-label {
-    color: #666;
-    margin: 5px 0 15px;
+    font-size: var(--text-lg);
+    color: var(--text-color);
+    margin-top: 8px;
 }
 
 .progress-container {
@@ -296,8 +633,9 @@ body {
 }
 
 .progress-label {
-    color: #666;
-    font-size: 14px;
+    font-size: var(--text-base);
+    color: var(--text-color);
+    margin-top: 12px;
 }
 
 .recent-activity {
@@ -310,15 +648,15 @@ body {
 }
 
 .activity-list {
-    margin-top: 15px;
+    margin-top: 24px;
 }
 
 .activity-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border-color);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .activity-item:last-child {
@@ -326,9 +664,9 @@ body {
 }
 
 .activity-amount {
+    font-size: var(--text-lg);
     font-weight: bold;
-    font-size: 18px;
-    color: var(--text-primary);
+    color: var(--primary-color);
 }
 
 .activity-details {
@@ -337,12 +675,13 @@ body {
 }
 
 .activity-name {
-    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--text-color);
 }
 
 .activity-category {
-    color: #666;
-    font-size: 14px;
+    font-size: var(--text-base);
+    color: var(--text-light);
 }
 
 .activity-time {
@@ -351,56 +690,47 @@ body {
 }
 
 .quick-actions {
-    grid-column: span 2;
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
 }
 
 .action-btn {
-    background: #4CAF50;
+    font-size: var(--text-base);
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--accent-color);
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 500;
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.action-btn:hover {
-    background: #45a049;
 }
 
 .quick-insight {
-    grid-column: span 2;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 12px;
     padding: 20px;
-    border-radius: 15px;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
     align-items: center;
-    gap: 15px;
-}
-
-.insight-icon {
-    font-size: 24px;
-}
-
-.insight-content {
-    flex-grow: 1;
+    margin-top: 24px;
 }
 
 .insight-title {
-    font-weight: 500;
-    margin-bottom: 5px;
+    font-size: var(--text-lg);
+    color: var(--primary-color);
+    margin-bottom: 8px;
 }
 
 .insight-text {
-    color: #666;
-    font-size: 14px;
+    font-size: var(--text-base);
+    color: var(--text-color);
+    line-height: 1.5;
 }
 
 h2, h3, h4 {
@@ -1299,6 +1629,16 @@ h2, h3, h4 {
     --error-color: #FF9800;
     --nav-text: #666666;
     --nav-active: #1a237e;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 24px;
+    --text-2xl: 32px;
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --text-color: #2c3e50;
+    --text-light: #4a5568;
+    --background-light: #f8fafc;
 }
 
 /* Remove redundant dark mode variables from .phone-frame[data-theme="dark"] and keep only this set */
@@ -2663,4 +3003,166 @@ textarea.form-input {
         order: 1;
         margin-bottom: 10px;
     }
+}
+
+/* Budget header improvements */
+.budget-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.total-budget {
+    text-align: left;
+}
+
+.total-budget .label {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.total-budget .amount {
+    font-size: var(--text-2xl);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.remaining-budget {
+    text-align: right;
+}
+
+.remaining-budget .label {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Budget alerts */
+.budget-alerts {
+    margin-top: 24px;
+}
+
+.alert {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--background-light);
+    align-items: center;
+}
+
+.alert.warning {
+    background: #fff3e0;
+    border: 1px solid #ffe0b2;
+}
+
+.alert-icon {
+    font-size: 24px;
+}
+
+.alert-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.alert-text {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* Upcoming expenses */
+.upcoming-expenses {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upcoming-expenses h3 {
+    font-size: var(--text-lg);
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.expense-list {
+    display: grid;
+    gap: 16px;
+}
+
+.expense-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    background: var(--background-light);
+    border-radius: 8px;
+}
+
+.expense-date {
+    text-align: center;
+    min-width: 60px;
+}
+
+.expense-date .date {
+    font-size: var(--text-xl);
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+}
+
+.expense-date .month {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+.expense-details {
+    overflow: hidden;
+}
+
+.expense-name {
+    font-size: var(--text-base);
+    color: var(--text-color);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.expense-category {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.expense-amount {
+    font-size: var(--text-lg);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.expense-amount.warning {
+    color: #f57c00;
+}
+
+/* Activity improvements */
+.activity-amount.income {
+    color: #4caf50;
+}
+
+/* Action buttons improvements */
+.action-btn.secondary {
+    background: #f57c00;
+}
+
+.action-btn.tertiary {
+    background: #7e57c2;
 }

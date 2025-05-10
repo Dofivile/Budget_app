@@ -30,51 +30,97 @@
             <!-- Home Tab Content -->
             <div class="tab-content" id="home-tab">
                 <div class="grid-container">
-                    <div class="budget-summary">
+                    <!-- Main Budget Card -->
+                    <div class="main-budget-card">
                         <h2>Budget Overview</h2>
-                        <div class="balance-card">
-                            <div class="balance-amount">$1,200</div>
-                            <div class="balance-label">remaining this month</div>
-                            <div class="progress-container">
-                                <div class="progress-bar" style="width: 65%"></div>
+                        <div class="budget-content">
+                            <div class="budget-numbers">
+                                <div class="budget-total">
+                                    <span class="label">Total Budget</span>
+                                    <span class="amount">$3,500.00</span>
+                                </div>
+                                <div class="budget-remaining">
+                                    <span class="label">Remaining</span>
+                                    <span class="amount">$1,200.00</span>
+                                    <span class="period">for next 12 days</span>
+                                </div>
                             </div>
-                            <div class="progress-label">You've spent 65% of your budget</div>
+                            
+                            <div class="budget-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 65%"></div>
+                                </div>
+                                <span class="progress-text">$2,300 spent (65%)</span>
+                            </div>
+
+                            <div class="alert warning-alert">
+                                <span class="alert-icon">⚠️</span>
+                                <div class="alert-content">
+                                    <span class="alert-title">Dining budget at 78%</span>
+                                    <span class="alert-message">$50 remaining this month</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="recent-activity">
+
+                    <!-- Upcoming Bills -->
+                    <div class="upcoming-bills-card">
+                        <h3>Upcoming Bills</h3>
+                        <div class="bills-list">
+                            <div class="bill-item">
+                                <div class="bill-date">
+                                    <span class="date">20</span>
+                                    <span class="month">APR</span>
+                                </div>
+                                <div class="bill-info">
+                                    <span class="bill-name">Electricity Bill</span>
+                                    <span class="bill-category">Utilities</span>
+                                </div>
+                                <span class="bill-amount warning">$85.50</span>
+                            </div>
+                            <div class="bill-item">
+                                <div class="bill-date">
+                                    <span class="date">22</span>
+                                    <span class="month">APR</span>
+                                </div>
+                                <div class="bill-info">
+                                    <span class="bill-name">Internet Service</span>
+                                    <span class="bill-category">Utilities</span>
+                                </div>
+                                <span class="bill-amount">$75.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity-card">
                         <h3>Recent Activity</h3>
                         <div class="activity-list">
                             <div class="activity-item">
-                                <div class="activity-amount">$15</div>
-                                <div class="activity-details">
-                                    <div class="activity-name">Starbucks</div>
-                                    <div class="activity-category">Food</div>
+                                <span class="activity-amount expense">-$15.00</span>
+                                <div class="activity-info">
+                                    <span class="activity-name">Starbucks</span>
+                                    <span class="activity-category">Food & Dining</span>
                                 </div>
-                                <div class="activity-time">2h ago</div>
+                                <span class="activity-time">2h ago</span>
                             </div>
                             <div class="activity-item">
-                                <div class="activity-amount">$30</div>
-                                <div class="activity-details">
-                                    <div class="activity-name">Uber</div>
-                                    <div class="activity-category">Transport</div>
+                                <span class="activity-amount expense">-$30.00</span>
+                                <div class="activity-info">
+                                    <span class="activity-name">Uber</span>
+                                    <span class="activity-category">Transportation</span>
                                 </div>
-                                <div class="activity-time">5h ago</div>
+                                <span class="activity-time">5h ago</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="quick-actions">
-                        <button class="action-btn primary manage-btn">
-                            <span>💰</span>Manage Budget
-                        </button>
-                    </div>
-                    
-                    <div class="quick-insight">
-                        <div class="insight-icon">💡</div>
-                        <div class="insight-content">
-                            <div class="insight-title">Quick Tip</div>
-                            <div class="insight-text">You're spending less on groceries compared to last month. Great job!</div>
+                            <div class="activity-item">
+                                <span class="activity-amount income">+$150.00</span>
+                                <div class="activity-info">
+                                    <span class="activity-name">Freelance Payment</span>
+                                    <span class="activity-category">Income</span>
+                                </div>
+                                <span class="activity-time">Yesterday</span>
+                            </div>
                         </div>
                     </div>
                 </div>
