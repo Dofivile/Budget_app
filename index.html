@@ -32,32 +32,38 @@
                 <div class="grid-container">
                     <!-- Main Budget Card -->
                     <div class="main-budget-card">
-                        <h2>Budget Overview</h2>
-                        <div class="budget-content">
-                            <div class="budget-numbers">
-                                <div class="budget-total">
+                        <div class="budget-header">
+                            <h2 class="overview-title">Budget Overview</h2>
+                            <div class="budget-row">
+                                <div class="total-budget">
                                     <span class="label">Total Budget</span>
                                     <span class="amount">$3,500.00</span>
+                                    <span class="period">April 2024</span>
                                 </div>
-                                <div class="budget-remaining">
+                                <div class="remaining-budget">
                                     <span class="label">Remaining</span>
                                     <span class="amount">$1,200.00</span>
-                                    <span class="period">for next 12 days</span>
+                                    <span class="period">12 days left</span>
                                 </div>
                             </div>
-                            
-                            <div class="budget-progress">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" style="width: 65%"></div>
-                                </div>
-                                <span class="progress-text">$2,300 spent (65%)</span>
+                        </div>
+                        
+                        <div class="budget-progress">
+                            <div class="progress-info">
+                                <span class="spent-amount">$2,300 spent</span>
+                                <span class="progress-percentage">65%</span>
                             </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
 
-                            <div class="alert warning-alert">
+                        <div class="budget-alerts">
+                            <div class="alert warning">
                                 <span class="alert-icon">⚠️</span>
                                 <div class="alert-content">
-                                    <span class="alert-title">Dining budget at 78%</span>
-                                    <span class="alert-message">$50 remaining this month</span>
+                                    <span class="alert-title">Dining Budget Alert</span>
+                                    <span class="alert-message">$50 remaining (78% used)</span>
                                 </div>
                             </div>
                         </div>

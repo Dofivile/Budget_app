@@ -20,7 +20,7 @@ body {
     width: 640px;
     height: 960px;
     background-color: var(--bg-card);
-    border: 20px solid #000;
+    border: 20px solid black; /* Making the frame border black */
     border-radius: 40px;
     position: relative;
     overflow: hidden;
@@ -54,7 +54,7 @@ body {
 
 /* Adjust text colors for better readability in dark mode */
 [data-theme="dark"] .phone-frame .balance-amount {
-    color: #7b8cde;
+    color: #000000;
 }
 
 [data-theme="dark"] .phone-frame .activity-amount {
@@ -73,6 +73,7 @@ body {
 [data-theme="dark"] .phone-frame .status-bar {
     background-color: #242424;
     color: #e1e1fc;
+    border-bottom: 1px solid black; /* Adding black border */
 }
 
 /* Bottom navigation in dark mode */
@@ -153,6 +154,7 @@ body {
     display: block; /* Show home tab by default */
 }
 
+/* Main container styles */
 .grid-container {
     padding: 16px;
     display: grid;
@@ -160,10 +162,16 @@ body {
     grid-template-rows: auto auto;
     gap: 16px;
     height: 100%;
+
 }
 
 .main-budget-card {
     grid-column: 1 / -1;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid black; /* Adding black border */
 }
 
 .quick-actions-card {
@@ -191,105 +199,198 @@ body {
 
 /* Main Budget Card */
 .main-budget-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-.main-budget-card h2 {
-    font-size: var(--text-xl);
-    color: var(--text-color);
-    margin-bottom: 16px;
-}
-
-.budget-content {
+.budget-header {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.budget-numbers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 16px;
+    margin-bottom: 24px;
 }
 
-.budget-total, .budget-remaining {
+.overview-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.budget-row {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
 }
 
-.budget-total .label,
-.budget-remaining .label {
-    font-size: var(--text-base);
-    color: var(--text-light);
+.total-budget,
+.remaining-budget {
+    flex: 1;
+}
+
+.total-budget .label,
+.remaining-budget .label {
+    font-size: 16px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.total-budget .amount,
+.remaining-budget .amount {
+    font-size: 32px;
+    font-weight: 600;
+    color: rgb(223, 146, 2);
+    display: block;
     margin-bottom: 4px;
 }
 
-.budget-total .amount,
-.budget-remaining .amount {
-    font-size: var(--text-2xl);
-    color: var(--text-color);
-    font-weight: bold;
+.total-budget .period,
+.remaining-budget .period {
+    font-size: 14px;
+    color: black;
+    display: block;
 }
 
-.budget-remaining .period {
-    font-size: var(--text-base);
-    color: var(--text-light);
-    margin-top: 4px;
+@media (max-width: 768px) {
+    .budget-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .total-budget,
+    .remaining-budget {
+        width: 100%;
+    }
 }
 
 .budget-progress {
+    margin-bottom: 24px;
+}
+
+.progress-info {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.spent-amount {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
+
+.progress-percentage {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-light);
 }
 
 .progress-bar-container {
     height: 8px;
-    background: #f1f5f9;
+    background: var(--progress-bg);
     border-radius: 4px;
     overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    background: var(--primary-color);
+    background: var(--progress-fill);
     border-radius: 4px;
     transition: width 0.3s ease;
 }
 
-.progress-text {
-    font-size: var(--text-base);
-    color: var(--text-light);
+.budget-alerts {
+    margin-top: 24px;
 }
 
-/* Warning Alert */
-.warning-alert {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff3e0;
-    padding: 12px;
-    border-radius: 8px;
-    border-left: 4px solid #fb8c00;
+.alert {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    align-items: start;
+}
+
+.alert.warning {
+    background: rgba(251, 140, 0, 0.1);
+    border-color: #fb8c00;
+}
+
+.alert-icon {
+    font-size: 24px;
+    line-height: 1;
+    color: #fb8c00;
 }
 
 .alert-content {
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .alert-title {
-    font-size: var(--text-base);
-    color: #e65100;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
 }
 
 .alert-message {
-    font-size: var(--text-base);
-    color: var(--text-light);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 600; /* Adding bold weight */
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .alert.warning {
+    background: rgba(251, 140, 0, 0.15);
+    border-color: rgba(251, 140, 0, 0.3);
+}
+
+/* High contrast mode */
+[data-contrast="high"] .alert.warning {
+    background: #fff3e0;
+    border-color: #ffb74d;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .main-budget-card {
+    background: var(--surface-dark);
+}
+
+[data-theme="dark"] .progress-bar-container {
+    background: rgba(241, 245, 249, 0.1);
+}
+
+/* High contrast mode */
+[data-contrast="high"] .progress-bar {
+    background: #98c210;
+}
+
+[data-contrast="high"] .alert.warning {
+    background: #fff3e0;
+    border-color: #ffb74d;
+}
+
+@media (max-width: 768px) {
+    .budget-header {
+        gap: 24px;
+    }
+    
+    .total-budget .amount,
+    .remaining-budget .amount {
+        font-size: 28px;
+    }
 }
 
 /* Quick Actions Card */
@@ -339,6 +440,7 @@ body {
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid black; /* Adding black border */
 }
 
 .upcoming-bills-card h3,
@@ -530,16 +632,21 @@ body {
     padding: 12px;
     border-radius: 8px;
     transition: all 0.2s ease;
-    color: var(--text-color);
-}
-
-.nav-item:hover {
-    background-color: #e2e8f0;
+    color: var(--text-secondary);
 }
 
 .nav-item.active {
-    background-color: #e2e8f0;
-    border-radius: 8px;
+    background-color: var(--nav-active); /* Using the theme's active color */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item:hover {
+    background-color: var(--nav-active);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .nav-icon {
@@ -550,8 +657,8 @@ body {
 }
 
 .nav-text {
-    font-size: var(--text-base);
-    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 /* Remove the active transform since it doesn't match the design */
@@ -634,7 +741,7 @@ body {
 
 .progress-label {
     font-size: var(--text-base);
-    color: var(--text-color);
+    color: black;
     margin-top: 12px;
 }
 
@@ -1622,7 +1729,7 @@ h2, h3, h4 {
     --text-secondary: #666666;
     --border-color: #f0f0f0;
     --progress-bg: #f0f0f0;
-    --progress-fill: #1a237e;
+    --progress-fill: #b5c110;
     --card-shadow: 0 2px 4px rgba(0,0,0,0.05);
     --toggle-bg: #e0e0e0;
     --nav-bg: #ffffff;
@@ -3018,15 +3125,15 @@ textarea.form-input {
 }
 
 .total-budget .label {
-    font-size: var(--text-base);
-    color: var(--text-light);
+    font-size: 18px;
+    color: black;
     display: block;
     margin-bottom: 8px;
 }
 
 .total-budget .amount {
     font-size: var(--text-2xl);
-    color: var(--primary-color);
+    color: black;
     font-weight: bold;
 }
 
@@ -3035,8 +3142,8 @@ textarea.form-input {
 }
 
 .remaining-budget .label {
-    font-size: var(--text-base);
-    color: var(--text-light);
+    font-size: 18px;
+    color: black;
     display: block;
     margin-bottom: 8px;
 }
@@ -3049,32 +3156,56 @@ textarea.form-input {
 .alert {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 12px;
-    padding: 16px;
-    border-radius: 8px;
-    background: var(--background-light);
-    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    align-items: start;
 }
 
 .alert.warning {
-    background: #fff3e0;
-    border: 1px solid #ffe0b2;
+    background: rgba(251, 140, 0, 0.1);
+    border-color: #fb8c00;
 }
 
 .alert-icon {
     font-size: 24px;
+    line-height: 1;
+    color: #fb8c00;
+}
+
+.alert-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .alert-title {
-    font-size: var(--text-base);
+    font-size: 16px;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--text-primary);
+    margin: 0;
 }
 
-.alert-text {
-    font-size: var(--text-base);
-    color: var(--text-light);
-    margin-top: 4px;
+.alert-message {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 600; /* Adding bold weight */
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .alert.warning {
+    background: rgba(251, 140, 0, 0.15);
+    border-color: rgba(251, 140, 0, 0.3);
+}
+
+/* High contrast mode */
+[data-contrast="high"] .alert.warning {
+    background: #fff3e0;
+    border-color: #ffb74d;
 }
 
 /* Upcoming expenses */
